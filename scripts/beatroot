@@ -1,0 +1,60 @@
+#!/usr/bin/python
+'''
+Usage: beatroot audio_file [-O] [-o output_file]
+'''
+
+import gflags
+import sys
+import os
+import pkg_resources
+from subprocess import Popen, PIPE
+from google.apputils import app
+
+gflags.DEFINE_bool('onsets', False,
+                   'Whether to output onsets instead of beats',
+                   short_name='O')
+
+gflags.DEFINE_string('output', None,
+                     'File for the output. If not defined, it uses stdout.',
+                     short_name='o')
+
+
+
+FLAGS = gflags.FLAGS
+
+JAR_FILE = pkg_resources.resource_filename(__name__, '../m2/beatroot/BeatRoot.jar')
+
+def beatroot(audio_file, onsets=False, output=None):
+    '''
+    Args:
+        audio_file: path to audio file to analyze
+        onsets: whether to output onset information
+        output: if not None, write output to given path
+    '''
+    args = ['java', '-jar', JAR_FILE]
+    if onsets:
+        args.append('-O')
+
+    _output = 'temp.out' if output is None else output
+
+    args.extend(['-o', _output])
+    args.append(audio_file)
+
+    p = Popen(args)
+    p.communicate()
+    if output is None:
+        with open(_output, 'r') as f:
+            for l in f:
+                sys.stdout.write(l)
+        os.remove(_output)
+
+
+def main(argv):
+    if len(argv) < 2:
+        print gflags.DocToHelp(__doc__)
+        exit()
+    beatroot(argv[1], FLAGS.onsets, FLAGS.output)
+
+
+if __name__ == '__main__':
+    app.run()
