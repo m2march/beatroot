@@ -23,7 +23,7 @@ setup(name='beatroot',
       author_email='m2.march@gmail.com',
       packages=['m2.beatroot'],
       namespace_packages=['m2'],
-      scripts=['scripts/beatroot', 'scripts/beatroot_onsets'],
+      scripts=['scripts/beatroot'],
       package_data={
           'm2.beatroot': ['m2/beatroot/BeatRoot.jar']
       },

@@ -23,6 +23,6 @@ def beatroot(audio_file, onsets=False, output=None):
     p.communicate()
     if output is None:
         with open(_output, 'r') as f:
-            for l in f:
-                sys.stdout.write(l)
+            beats = [float(l) for l in f]
+            return beats
         os.remove(_output)

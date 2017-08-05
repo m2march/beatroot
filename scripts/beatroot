@@ -4,7 +4,6 @@ Usage: beatroot audio_file [-O] [-o output_file]
 '''
 
 import gflags
-import sys
 import os
 from google.apputils import app
 from m2.beatroot import beatroot
@@ -25,7 +24,10 @@ def main(argv):
     if len(argv) < 2:
         print gflags.DocToHelp(__doc__)
         exit()
-    beatroot(argv[1], FLAGS.onsets, FLAGS.output)
+    beats = beatroot(argv[1], FLAGS.onsets, FLAGS.output)
+    if beats is not None:
+        for b in beats:
+            print b
 
 
 if __name__ == '__main__':
