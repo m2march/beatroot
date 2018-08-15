@@ -1,34 +1,31 @@
-#!/usr/bin/python
+#!python
 '''
 Usage: beatroot audio_file [-O] [-o output_file]
 '''
-
-import gflags
 import os
-from google.apputils import app
+from absl import app
+from absl import flags 
 from m2.beatroot import beatroot
 
-gflags.DEFINE_bool('onsets', False,
+FLAGS = flags.FLAGS
+
+flags.DEFINE_bool('onsets', False,
                    'Whether to output onsets instead of beats',
                    short_name='O')
 
-gflags.DEFINE_string('output', None,
+flags.DEFINE_string('output', None,
                      'File for the output. If not defined, it uses stdout.',
                      short_name='o')
 
-
-FLAGS = gflags.FLAGS
-
-
 def main(argv):
     if len(argv) < 2:
-        print gflags.DocToHelp(__doc__)
+        print(flags.doc_to_help(__doc__))
         exit()
     beats = beatroot(argv[1], FLAGS.onsets, FLAGS.output)
     if beats is not None:
         for b in beats:
-            print b
+            print(b)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(main)
