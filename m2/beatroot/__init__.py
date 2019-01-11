@@ -40,9 +40,11 @@ class BeatrootInput:
             input (as list of floats): onset times (in seconds)
         '''
         self.temp = None
+        self.input = None 
 
         if isinstance(input, str):
-            return input
+            self.input = input
+            return 
         
         top = math.ceil(max(input))
         if (top == max(input)):
@@ -56,7 +58,10 @@ class BeatrootInput:
         wavfile.write(self.temp, SR, signal)
 
     def __enter__(self):
-        return self.temp
+        if self.temp is not None:
+            return self.temp
+        else:
+            return self.input
 
     def __exit__(self, type, value, traceback):
         if self.temp is not None:
