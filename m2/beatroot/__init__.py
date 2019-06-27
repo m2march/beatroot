@@ -68,7 +68,7 @@ class BeatrootInput:
             os.remove(self.temp)
 
 
-def beatroot(input, onsets=False, output=None, version='0.5.6'):
+def beatroot(input, onsets=False, output=None, version='0.5.8'):
     '''
     Args:
         input: list of onset times (in seconds) or path to audio file to analyze
