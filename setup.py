@@ -9,13 +9,15 @@ from setuptools.command.install import install
 
 class PostInstallCommand(install):
     def run(self):
-        Popen(['make', '-C', 'beatroot'])
+        p = Popen(['make', '-C', 'beatroot'])
+        p.communicate()
         install.do_egg_install(self)
         install.run(self)
 
 class PostDevelopCommand(develop):
     def run(self):
-        Popen(['make', '-C', 'beatroot'])
+        p = Popen(['make', '-C', 'beatroot'])
+        p.communicate()
         develop.run(self)
 
 setup(name='beatroot',
