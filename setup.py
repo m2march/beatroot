@@ -27,7 +27,7 @@ setup(name='beatroot',
       namespace_packages=['m2'],
       scripts=['scripts/beatroot'],
       package_data={
-          'm2.beatroot': ['BeatRoot.jar', 'beatroot-0.5.8.jar']
+          'm2.beatroot': ['*.jar']
       },
       cmdclass={
           'develop': PostDevelopCommand,
