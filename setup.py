@@ -3,7 +3,7 @@
 import os
 from subprocess import Popen
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
@@ -25,7 +25,7 @@ setup(name='beatroot',
       description='API for beatroot for use from python',
       author='Martin "March" Miguel',
       author_email='m2.march@gmail.com',
-      packages=['m2', 'm2.beatroot'],
+      packages=find_packages(),
       namespace_packages=['m2'],
       scripts=['scripts/beatroot'],
       package_data={
